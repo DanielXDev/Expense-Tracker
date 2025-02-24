@@ -1,4 +1,3 @@
-# Expense-Tracker
 # Expense Tracker
 
 A simple **Tkinter-based Expense Tracker** that allows users to record, view, and manage their expenses. The application stores expense data in a CSV file and provides an easy-to-use graphical interface.
