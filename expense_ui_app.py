@@ -27,13 +27,13 @@ class ExpenseTrakerApp:
         canvas.grid(row=0, column=1)
         return canvas
 
-    def setup_page1(self):
+     def setup_page1(self):
         # ---- First Display ----#
         canvas = self.create_canvas(self.frame1)
+        canvas.create_text(200,160, text="Enter you username below...", font=("Ariel", 10, "normal"))
         username_entry = tk.Entry(self.frame1,bg="#ffffff")
-        username_entry.insert(0, "Enter you username")
 
-        submit_btn = tk.Button(self.frame1, text="Submit", command=lambda: self.show_page2(username_entry.get()))
+        submit_btn = tk.Button(self.frame1, text="Submit", command=lambda: self.show_page2(username_entry.get()) if len(username_entry.get()) != 0 else username_entry.insert(0, "Input your username"))
         canvas.create_window(170, 200, window=username_entry, width=200, height=30)
         canvas.create_window(300, 200, window=submit_btn)
 
@@ -46,6 +46,8 @@ class ExpenseTrakerApp:
 
         category_label = tk.Label(self.frame2, text="Category:", font=("Ariel", 16, "normal"), width=8)
         category_entry = tk.Entry(self.frame2)
+        category_entry.insert(0, "Food,Bills,Clothing...etc")
+
 
         amount_label = tk.Label(self.frame2, text="Amount:", font=("Ariel", 16, "normal"), width=8)
         amount_entry = tk.Entry(self.frame2)
@@ -96,16 +98,22 @@ class ExpenseTrakerApp:
             canvas.create_window(200, 350, window=back_btn)
         else:
             print("You don't have any expense file, input necessary details to calculate your expenses")
-    def submit_expense(self, user, category, amount, date):
-        ExpenseTracker(
-            user,
-            category.get(),
-            amount.get(),
-            date.get()
-        )
-        category.delete(0, tk.END)
-        amount.delete(0, tk.END)
-        date.delete(0, tk.END)
+        def submit_expense(self, user, category, amount, date):
+        if len(category.get()) != 0 and len(amount.get()) != 0 and len(date.get()) != 0:
+            ExpenseTracker(
+                user,
+                category.get(),
+                amount.get(),
+                date.get()
+            )
+            category.delete(0, tk.END)
+            amount.delete(0, tk.END)
+            date.delete(0, tk.END)
+        else:
+            category.insert(0, "Needed: ")
+            amount.insert(0, "Needed")
+            date.insert(0, "Needed: ")
+
 
     def show_page1(self):
         self.frame1.grid(row=0, column=0, sticky="nsew")
