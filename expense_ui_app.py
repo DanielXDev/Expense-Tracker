@@ -27,7 +27,7 @@ class ExpenseTrakerApp:
         canvas.grid(row=0, column=1)
         return canvas
 
-     def setup_page1(self):
+    def setup_page1(self):
         # ---- First Display ----#
         canvas = self.create_canvas(self.frame1)
         canvas.create_text(200,160, text="Enter you username below...", font=("Ariel", 10, "normal"))
@@ -37,7 +37,7 @@ class ExpenseTrakerApp:
         canvas.create_window(170, 200, window=username_entry, width=200, height=30)
         canvas.create_window(300, 200, window=submit_btn)
 
-      def setup_page2(self, user):
+    def setup_page2(self, user):
         # ------- Second Page -------#
         canvas = self.create_canvas(self.frame2)
 
