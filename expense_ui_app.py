@@ -37,22 +37,20 @@ class ExpenseTrakerApp:
         canvas.create_window(170, 200, window=username_entry, width=200, height=30)
         canvas.create_window(300, 200, window=submit_btn)
 
-    def setup_page2(self, user):
+      def setup_page2(self, user):
         # ------- Second Page -------#
         canvas = self.create_canvas(self.frame2)
 
-        username = tk.Label(text=user, font=("Ariel", 16, "normal"))
-        canvas.create_window(50, 30, window=username)
+        canvas.create_text(50, 30, text=user, font=("Ariel", 16, "italic"))
 
-        category_label = tk.Label(self.frame2, text="Category:", font=("Ariel", 16, "normal"), width=8)
+        canvas.create_text(100, 200, text="Category:", font=("Ariel", 16, "normal"))
         category_entry = tk.Entry(self.frame2)
         category_entry.insert(0, "Food,Bills,Clothing...etc")
 
-
-        amount_label = tk.Label(self.frame2, text="Amount:", font=("Ariel", 16, "normal"), width=8)
+        canvas.create_text(100, 250, text="Amount:", font=("Ariel", 16, "normal"))
         amount_entry = tk.Entry(self.frame2)
 
-        date_label = tk.Label(self.frame2, text="Date:", font=("Ariel", 16, "normal"), width=8)
+        canvas.create_text(100, 300, text="Date:", font=("Ariel", 16, "normal"))
         date_entry = tk.Entry(self.frame2)
         date_entry.insert(0, "(dd-mm-yyyy)")
 
@@ -65,15 +63,12 @@ class ExpenseTrakerApp:
         calculate_expense_btn = tk.Button(text="Expenses", command=lambda: self.show_page3(user))
 
         # Placing the entries and labels on the canvas
-        canvas.create_window(100, 200, window=category_label)
-        canvas.create_window(250, 200, window=category_entry, width=200, height=30)
-        canvas.create_window(100, 250, window=amount_label)
-        canvas.create_window(250, 250, window=amount_entry, width=200, height=30)
-        canvas.create_window(100, 300, window=date_label)
-        canvas.create_window(250, 300, window=date_entry, width=200, height=30)
+        canvas.create_window(250, 200, window=category_entry, width=200, height=25)
+        canvas.create_window(250, 250, window=amount_entry, width=200, height=25)
+        canvas.create_window(250, 300, window=date_entry, width=200, height=25)
         canvas.create_window(270, 350, window=expense_submit_btn)
         canvas.create_window(150, 350, window=calculate_expense_btn)
-
+          
     def setup_page3(self, user):
         canvas = self.create_canvas(self.frame3)
         if os.path.exists("ex.csv"):
