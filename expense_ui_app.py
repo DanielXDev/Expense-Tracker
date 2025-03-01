@@ -27,14 +27,26 @@ class ExpenseTrakerApp:
         canvas.grid(row=0, column=1)
         return canvas
 
-    def setup_page1(self):
+        def setup_page1(self):
         # ---- First Display ----#
         canvas = self.create_canvas(self.frame1)
-        canvas.create_text(200,160, text="Enter your username below...", font=("Ariel", 10, "normal"))
-        username_entry = tk.Entry(self.frame1,bg="#ffffff")
+        def on_entry_click(event):
+            if entry.get() == "Enter your username":
+                entry.delete(0, tk.END)
+                entry.config(foreground="black")
 
-        submit_btn = tk.Button(self.frame1, text="Submit", command=lambda: self.show_page2(username_entry.get()) if len(username_entry.get()) != 0 else username_entry.insert(0, "Input your username"))
-        canvas.create_window(170, 200, window=username_entry, width=200, height=30)
+        def on_focus_out(event):
+            if not entry.get():
+                entry.insert(0, "Enter your username")
+                entry.config(foreground="gray")
+
+        entry = ttk.Entry(self.frame1, foreground="gray")
+        entry.insert(0, "Enter your username")  # Insert placeholder text
+        entry.bind("<FocusIn>", on_entry_click)  # Bind focus-in event
+        entry.bind("<FocusOut>", on_focus_out)  # Bind focus-out event
+
+        submit_btn = tk.Button(self.frame1, text="Submit", command=lambda: self.show_page2(entry.get()) if len(entry.get()) != 0 else username_entry.insert(0, "Input your username"))
+        canvas.create_window(170, 200, window=entry, width=200, height=30)
         canvas.create_window(300, 200, window=submit_btn)
 
     def setup_page2(self, user):
@@ -43,22 +55,44 @@ class ExpenseTrakerApp:
 
         canvas.create_text(50, 30, text=user, font=("Ariel", 16, "italic"))
 
+        # -------  Placeholder handling functions  ------#
+        def on_entry_click(event, entry, placeholder):
+            if entry.get() == placeholder:
+                entry.delete(0, tk.END)
+                entry.config(fg="black")
+
+        def on_focus_out(event, entry, placeholder):
+            if not entry.get():
+                entry.insert(0, placeholder)
+                entry.config(fg="gray")
+
+        # Category Entry
         canvas.create_text(100, 200, text="Category:", font=("Ariel", 16, "normal"))
-        category_entry = tk.Entry(self.frame2)
-        category_entry.insert(0, "Food,Bills,Clothing...etc")
+        category_entry = tk.Entry(self.frame2, fg="gray")
+        category_placeholder = "Food, Bills, Clothing...etc"
+        category_entry.insert(0, category_placeholder)
+        category_entry.bind("<FocusIn>", lambda event: on_entry_click(event, category_entry, category_placeholder))
+        category_entry.bind("<FocusOut>", lambda event: on_focus_out(event, category_entry, category_placeholder))
 
+        # Amount Entry
         canvas.create_text(100, 250, text="Amount:", font=("Ariel", 16, "normal"))
-        amount_entry = tk.Entry(self.frame2)
+        amount_entry = tk.Entry(self.frame2, fg="gray")
+        amount_placeholder = "Enter amount"
+        amount_entry.insert(0, amount_placeholder)
+        amount_entry.bind("<FocusIn>", lambda event: on_entry_click(event, amount_entry, amount_placeholder))
+        amount_entry.bind("<FocusOut>", lambda event: on_focus_out(event, amount_entry, amount_placeholder))
 
+        # Date Entry
         canvas.create_text(100, 300, text="Date:", font=("Ariel", 16, "normal"))
-        date_entry = tk.Entry(self.frame2)
-        date_entry.insert(0, "(dd-mm-yyyy)")
+        date_entry = tk.Entry(self.frame2, fg="gray")
+        date_placeholder = "(dd-mm-yyyy)"
+        date_entry.insert(0, date_placeholder)
+        date_entry.bind("<FocusIn>", lambda event: on_entry_click(event, date_entry, date_placeholder))
+        date_entry.bind("<FocusOut>", lambda event: on_focus_out(event, date_entry, date_placeholder))
 
+        # Buttons
         expense_submit_btn = tk.Button(text="Submit", command=lambda: self.submit_expense(
-            user,
-            category_entry,
-            amount_entry,
-            date_entry
+            user, category_entry, amount_entry, date_entry
         ))
         calculate_expense_btn = tk.Button(text="Expenses", command=lambda: self.show_page3(user))
 
@@ -127,6 +161,7 @@ class ExpenseTrakerApp:
 
 
 rt = tk.Tk()
+rt.title("Expense Tracker")
 bg_img = PhotoImage(file="bg.png")
 app = ExpenseTrakerApp(rt, bg_img)
 rt.mainloop()
