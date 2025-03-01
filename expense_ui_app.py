@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import PhotoImage
 from expense_tracker import ExpenseTracker
 import os
@@ -27,7 +28,7 @@ class ExpenseTrakerApp:
         canvas.grid(row=0, column=1)
         return canvas
 
-        def setup_page1(self):
+    def setup_page1(self):
         # ---- First Display ----#
         canvas = self.create_canvas(self.frame1)
         def on_entry_click(event):
@@ -45,7 +46,7 @@ class ExpenseTrakerApp:
         entry.bind("<FocusIn>", on_entry_click)  # Bind focus-in event
         entry.bind("<FocusOut>", on_focus_out)  # Bind focus-out event
 
-        submit_btn = tk.Button(self.frame1, text="Submit", command=lambda: self.show_page2(entry.get()) if len(entry.get()) != 0 else username_entry.insert(0, "Input your username"))
+        submit_btn = tk.Button(self.frame1, text="Submit", command=lambda: self.show_page2(entry.get()) if len(entry.get()) != 0 else entry.insert(0, "Input your username"))
         canvas.create_window(170, 200, window=entry, width=200, height=30)
         canvas.create_window(300, 200, window=submit_btn)
 
@@ -123,10 +124,10 @@ class ExpenseTrakerApp:
                 self.expenses.append(cat)
                 self.expenses.append(amt)
                 y += 50
-            back_btn = tk.Button(text="back...", command=lambda: self.show_page2(user))
-            canvas.create_window(200, 350, window=back_btn)
         else:
             print("You don't have any expense file, input necessary details to calculate your expenses")
+        back_btn = tk.Button(text="back...", command=lambda: self.show_page2(user))
+        canvas.create_window(200, 350, window=back_btn)
     def submit_expense(self, user, category, amount, date):
         if len(category.get()) != 0 and len(amount.get()) != 0 and len(date.get()) != 0:
             ExpenseTracker(
@@ -143,10 +144,8 @@ class ExpenseTrakerApp:
             amount.insert(0, "Needed")
             date.insert(0, "Needed: ")
 
-
     def show_page1(self):
         self.frame1.grid(row=0, column=0, sticky="nsew")
-
 
     def show_page2(self, username):
         self.frame1.destroy()
