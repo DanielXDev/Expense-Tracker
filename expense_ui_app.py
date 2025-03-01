@@ -30,7 +30,7 @@ class ExpenseTrakerApp:
     def setup_page1(self):
         # ---- First Display ----#
         canvas = self.create_canvas(self.frame1)
-        canvas.create_text(200,160, text="Enter you username below...", font=("Ariel", 10, "normal"))
+        canvas.create_text(200,160, text="Enter your username below...", font=("Ariel", 10, "normal"))
         username_entry = tk.Entry(self.frame1,bg="#ffffff")
 
         submit_btn = tk.Button(self.frame1, text="Submit", command=lambda: self.show_page2(username_entry.get()) if len(username_entry.get()) != 0 else username_entry.insert(0, "Input your username"))
