@@ -93,7 +93,7 @@ class ExpenseTrakerApp:
             canvas.create_window(200, 350, window=back_btn)
         else:
             print("You don't have any expense file, input necessary details to calculate your expenses")
-        def submit_expense(self, user, category, amount, date):
+    def submit_expense(self, user, category, amount, date):
         if len(category.get()) != 0 and len(amount.get()) != 0 and len(date.get()) != 0:
             ExpenseTracker(
                 user,
