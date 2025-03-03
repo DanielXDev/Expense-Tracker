@@ -10,7 +10,7 @@ class ExpenseTrackerApp:
         self.root = root
         self.root.geometry("400x400")  
         self.root.resizable(False, False)
-        self.root.title("Expenses Tracker")
+        self.root.title("Expense Tracker")
         self.expenses = []
 
         self.frame1 = tk.Frame(root, width=400, height=500, bg="#f7f7f7")
@@ -48,7 +48,7 @@ class ExpenseTrackerApp:
     def setup_page1(self):
         # ------- First Page ------- #
         canvas = self.create_canvas(self.frame1)
-        canvas.create_text(200, 80, text="Expenses Tracker", font=("Arial", 22, "bold"), fill="#333")
+        canvas.create_text(200, 80, text="Expense Tracker", font=("Arial", 22, "bold"), fill="#333")
         username_entry = tk.Entry(self.frame1, bg="white", fg="black", font=("Arial", 12), relief="flat", bd=2)
         self.add_placeholder(username_entry, "Enter Username")
 
