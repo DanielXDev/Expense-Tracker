@@ -5,7 +5,7 @@ import os
 import pandas as pd
 
 
-class ExpenseTrakerApp:
+class ExpenseTrackerApp:
     def __init__(self, root, img):
         self.root = root
         self.root.geometry("400x400")  
